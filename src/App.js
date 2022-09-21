@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   // const student = ['Fardin', 'Loop', 'Salman', 'Eid', 'abid']
   return (
     <div className="App">
       <Counter></Counter>
+      <IncreaseCounterValue></IncreaseCounterValue>
+      <Comment></Comment>
       {/* {student.map(name => <Cenema>{student}</Cenema>)}
       <Cenema name={student[0]} nayok="Nabb" job="RES"></Cenema>
       <Cenema name="Bapparaz" job="Cheka"></Cenema>
@@ -43,6 +45,45 @@ function Counter() {
       <button onClick={increaseCount}>Increase</button>
       <button onClick={deCrease}>Decrease</button>
 
+    </div>
+  )
+
+}
+
+
+
+function IncreaseCounterValue() {
+  const [counterValue, setValue] = useState(200)
+  const increase = () => setValue(counterValue + 1)
+  return (
+    <div>
+      <h2>Counter :{counterValue} </h2>
+      <button onClick={increase} >Increase Value </button>
+    </div>
+  )
+}
+
+
+
+//Use State
+
+function Comment() {
+  const [comment, setComment] = useState([])
+  useEffect(() => {
+
+    fetch('https://jsonplaceholder.typicode.com/comments')
+      .then(res => res.json())
+      .then(data => setComment(data))
+
+  }, [])
+  return (
+    <div>
+      <h4>Name:</h4>
+
+      <p>{comment.length}</p>
+      {
+        comment.map(allcomment => <li>{allcomment.name}</li>)
+      }
     </div>
   )
 }
